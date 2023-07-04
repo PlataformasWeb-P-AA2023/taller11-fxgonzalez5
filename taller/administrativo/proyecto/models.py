@@ -18,10 +18,20 @@ class Edificio(models.Model):
                 self.ciudad,
                 self.tipo)
     
+    def get_nro_cuartos_total(self):
+        cantidadTotal = [d.nro_cuartos for d in self.departamentos.all()]
+        cantidadTotal = sum(cantidadTotal)
+        return cantidadTotal
+    
+    def get_costo_total(self):
+        costoTotal = [d.costo for d in self.departamentos.all()]
+        costoTotal = sum(costoTotal)
+        return costoTotal
+    
 
 class Departamento(models.Model):
     propietario = models.CharField(max_length=100)
-    costo = models.DecimalField(max_digits= 6, decimal_places= 2)
+    costo = models.DecimalField(max_digits= 8, decimal_places= 2)
     nro_cuartos =  models.IntegerField("Número de cuartos")
     edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE,
             related_name="departamentos")

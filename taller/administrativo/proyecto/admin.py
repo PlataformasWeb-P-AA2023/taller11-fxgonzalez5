@@ -11,8 +11,12 @@ admin.site.register(Edificio, EdificioAdmin)
 
 
 class DepartamentoAdmin(admin.ModelAdmin):
-    list_display = ('propietario', 'costo', 'nro_cuartos', 'edificio')
+    list_display = ('propietario', 'costo', 'nro_cuartos', 'get_edificio')
     search_fields = ('propietario', 'costo', 'nro_cuartos')
     raw_id_fields = ('edificio',)
+
+    def get_edificio(self, obj):
+        """ """
+        return obj.edificio.nombre
 
 admin.site.register(Departamento, DepartamentoAdmin)
